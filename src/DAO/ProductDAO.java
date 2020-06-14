@@ -16,8 +16,9 @@ public class ProductDAO implements IProductDAO {
 
     private static final String SELECT_ALL_PRODUCTS = "SELECT * FROM product";
     private static final String SELECT_PRODUCT = "SELECT * FROM product where productId=?";
-    private static final String UPDATE_PRODUCT = "update product set name = ?,price= ?, amount =?,color=?,description=?,category where productId = ?;";
-    private static final String INSERT_Product = "insert into product values (?,?,?,?,?,?)";
+    private static final String UPDATE_PRODUCT = "update product set name = ?,price= ?, amount =?,color=?,description=?,category=? where productId = ? ";
+    private static final String INSERT_Product = "insert into product (name, price, amount, color, description, category) values (?,?,?,?,?,?)";
+    private static final String DELETE_Product = "delete from product where productId =?";
 
     public ProductDAO(DBConnection dbConnection) {
         this.dbConnection = dbConnection;
@@ -73,14 +74,16 @@ public class ProductDAO implements IProductDAO {
 
     @Override
     public void updateProduct(Product product) {
+//        "update product set name = ?,price= ?, amount =?,color=?,description=?,category=? where productId = ?;";
         try {
             PreparedStatement statement = dbConnection.getConnection().prepareStatement(UPDATE_PRODUCT);
             statement.setString(1, product.getName());
             statement.setFloat(2, product.getPrice());
             statement.setInt(3, product.getAmount());
-            statement.setString(1, product.getColor());
-            statement.setString(1, product.getDescription());
-            statement.setString(1, product.getCategory());
+            statement.setString(4, product.getColor());
+            statement.setString(5, product.getDescription());
+            statement.setString(6, product.getCategory());
+            statement.setInt(7, product.getId());
             statement.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -89,18 +92,31 @@ public class ProductDAO implements IProductDAO {
 
     @Override
     public void addProduct(Product product) {
-        PreparedStatement preparedStatement = null;
+
+
         try {
-            preparedStatement = dbConnection.getConnection().prepareStatement(INSERT_Product);
+            PreparedStatement preparedStatement = dbConnection.getConnection().prepareStatement(INSERT_Product);
             preparedStatement.setString(1, product.getName());
             preparedStatement.setFloat(2, product.getPrice());
-            preparedStatement.setInt(5, product.getAmount());
+            preparedStatement.setInt(3, product.getAmount());
             preparedStatement.setString(4, product.getColor());
-            preparedStatement.setString(3, product.getDescription());
-            preparedStatement.setString(3, product.getCategory());
+            preparedStatement.setString(5, product.getDescription());
+            preparedStatement.setString(6, product.getCategory());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void deleteProduct(int id) {
+        try {
+            PreparedStatement statement=dbConnection.getConnection().prepareStatement(DELETE_Product);
+            statement.setInt(1,id);
+            statement.executeUpdate();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
     }
 

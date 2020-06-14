@@ -15,7 +15,7 @@
     <table>
         <tr>
             <td>name</td>
-            <td><input name="name" ></td>
+            <td><input name="name" type="text" ></td>
         </tr>
         <tr>
             <td>price</td>
@@ -39,7 +39,7 @@
         </tr>
         <tr><td><input type="submit"></tr>
     </table>
-    <a href="/Product">back</a>
+
 <form>
 </body>
 </html>

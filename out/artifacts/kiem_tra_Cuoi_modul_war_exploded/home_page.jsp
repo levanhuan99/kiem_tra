@@ -16,9 +16,11 @@
 <body>
 
 
-<form action="/Product">
+<form method="post" action="/Product?action=search">
     <input name="search" type="number">
-    <a href="/Product?action=search">search</a>
+    <input type="submit">
+</form>
+
     <a href="/Product?action=add" >add product</a>
     <table class="table table-bordered">
         <thead>
@@ -51,7 +53,7 @@
         </c:forEach>
         </tbody>
     </table>
-</form>
+
 
 </body>
 </html>

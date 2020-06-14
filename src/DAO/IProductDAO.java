@@ -13,5 +13,7 @@ public interface IProductDAO {
 
     void addProduct(Product product);
 
+    void deleteProduct(int id);
+
 
 }

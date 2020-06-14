@@ -11,7 +11,7 @@
     <title>Title</title>
 </head>
 <body>
-<form method="post" action="/Product">
+<form method="post" action="/Product?action=update">
     <table>
         <tr>
             <td>name</td>

@@ -30,7 +30,7 @@
         <td><c:out value='${requestScope["productSearch"].getPrice()}'></c:out></td>
         <td><c:out value='${requestScope["productSearch"].getAmount()}'></c:out></td>
         <td><c:out value='${requestScope["productSearch"].getColor()}'></c:out></td>
-        <td><c:out value='${requestScope["productSearch"].getDescripton()}'></c:out></td>
+        <td><c:out value='${requestScope["productSearch"].getDescription()}'></c:out></td>
         <td><c:out value='${requestScope["productSearch"].getCategory()}'></c:out></td>
     </tr>
     
