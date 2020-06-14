@@ -41,7 +41,18 @@ public class ProductServlet extends HttpServlet {
             case "search":
                 searchProduct(request, response);
                 break;
+            case "search_by_name":
+                searchProductByName(request, response);
+                break;
         }
+    }
+
+    private void searchProductByName(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+       String name=request.getParameter("search_by_name");
+        List<Product> product = productDAO.selectProductByName(name);
+        request.setAttribute("productSearchByName", product);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/result_search_by_name.jsp");
+        dispatcher.forward(request, response);
     }
 
     private void saveAddProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -71,6 +82,15 @@ public class ProductServlet extends HttpServlet {
         RequestDispatcher dispatcher=request.getRequestDispatcher("/back_to_list.jsp");
         dispatcher.forward(request,response);
     }
+    private void searchProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("search"));
+        Product product = productDAO.selectProduct(id);
+        request.setAttribute("productSearch", product);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/result_search.jsp");
+        dispatcher.forward(request, response);
+
+    }
+
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
@@ -101,14 +121,6 @@ public class ProductServlet extends HttpServlet {
         response.sendRedirect("/Product");
     }
 
-    private void searchProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("search"));
-        Product product = productDAO.selectProduct(id);
-        request.setAttribute("productSearch", product);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/result_search.jsp");
-        dispatcher.forward(request, response);
-
-    }
 
     private void addProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/add_form.jsp");

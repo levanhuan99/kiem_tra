@@ -17,7 +17,13 @@
 
 
 <form method="post" action="/Product?action=search">
+    <h4>tìm theo id</h4>
     <input name="search" type="number">
+    <input type="submit">
+</form><br>
+<form method="post" action="/Product?action=search_by_name">
+    <h4>tìm theo tên</h4>
+    <input name="search_by_name" type="text">
     <input type="submit">
 </form>
 

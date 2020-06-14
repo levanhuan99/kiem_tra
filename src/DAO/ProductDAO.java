@@ -19,6 +19,8 @@ public class ProductDAO implements IProductDAO {
     private static final String UPDATE_PRODUCT = "update product set name = ?, price= ?, amount =?,color=?,description=?,category=? where productId = ? ";
     private static final String INSERT_Product = "insert into product (name, price, amount, color, description, category) values (?,?,?,?,?,?)";
     private static final String DELETE_Product = "delete from product where productId =?";
+    private static final String SELECT_PRODUCT_BY_NAME= "select * from product where name like ?;";
+
 
     public ProductDAO(DBConnection dbConnection) {
         this.dbConnection = dbConnection;
@@ -118,6 +120,31 @@ public class ProductDAO implements IProductDAO {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+    }
+    @Override
+    public List<Product> selectProductByName(String productName) {
+        List<Product> list=new ArrayList<>();
+        try {
+            PreparedStatement statement = dbConnection.getConnection().prepareStatement(SELECT_PRODUCT_BY_NAME);
+            statement.setString(1,"%"+productName+"%");
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()){
+                int id=resultSet.getInt("productId");
+                String name = resultSet.getString("name");
+                float price = resultSet.getFloat("price");
+                int amount = resultSet.getInt("amount");
+                String color = resultSet.getString("color");
+                String description = resultSet.getString("description");
+                String category = resultSet.getString("category");
+                Product product = new Product(id, name, price, amount, color, description, category);
+                list.add(product);
+            }
+            return list;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return null;
     }
 
 }
