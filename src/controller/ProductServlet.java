@@ -59,15 +59,17 @@ public class ProductServlet extends HttpServlet {
     }
 
     private void editInfor(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int id=Integer.parseInt(request.getParameter("id"));
         String name = request.getParameter("name");
         float price = Float.parseFloat(request.getParameter("price"));
         int amount = Integer.parseInt(request.getParameter("quantity"));
         String color = request.getParameter("color");
         String description = request.getParameter("description");
         String category = request.getParameter("category");
-        Product newProduct = new Product(1, name, price, amount, color, description, category);
+        Product newProduct = new Product(id, name, price, amount, color, description, category);
         productDAO.updateProduct(newProduct);
-        response.sendRedirect("/Product");
+        RequestDispatcher dispatcher=request.getRequestDispatcher("/back_to_list.jsp");
+        dispatcher.forward(request,response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -94,17 +96,17 @@ public class ProductServlet extends HttpServlet {
     }
 
     private void showDeleteForm(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        int id=Integer.parseInt(request.getParameter("idDelete"));
+        int id = Integer.parseInt(request.getParameter("idDelete"));
         productDAO.deleteProduct(id);
         response.sendRedirect("/Product");
     }
 
     private void searchProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int id=Integer.parseInt(request.getParameter("search"));
-        Product product=productDAO.selectProduct(id);
-        request.setAttribute("productSearch",product);
-        RequestDispatcher dispatcher=request.getRequestDispatcher("/result_search.jsp");
-        dispatcher.forward(request,response);
+        int id = Integer.parseInt(request.getParameter("search"));
+        Product product = productDAO.selectProduct(id);
+        request.setAttribute("productSearch", product);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/result_search.jsp");
+        dispatcher.forward(request, response);
 
     }
 

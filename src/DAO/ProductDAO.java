@@ -16,7 +16,7 @@ public class ProductDAO implements IProductDAO {
 
     private static final String SELECT_ALL_PRODUCTS = "SELECT * FROM product";
     private static final String SELECT_PRODUCT = "SELECT * FROM product where productId=?";
-    private static final String UPDATE_PRODUCT = "update product set name = ?,price= ?, amount =?,color=?,description=?,category=? where productId = ? ";
+    private static final String UPDATE_PRODUCT = "update product set name = ?, price= ?, amount =?,color=?,description=?,category=? where productId = ? ";
     private static final String INSERT_Product = "insert into product (name, price, amount, color, description, category) values (?,?,?,?,?,?)";
     private static final String DELETE_Product = "delete from product where productId =?";
 

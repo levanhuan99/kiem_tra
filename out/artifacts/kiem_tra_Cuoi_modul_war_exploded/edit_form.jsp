@@ -11,7 +11,7 @@
     <title>Title</title>
 </head>
 <body>
-<form method="post" action="/Product?action=update">
+<form method="post" action="/Product?action=update&&id=${requestScope["productEdit"].getId()}">
     <table>
         <tr>
             <td>name</td>

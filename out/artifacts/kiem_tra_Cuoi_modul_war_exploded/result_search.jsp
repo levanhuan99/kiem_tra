@@ -34,7 +34,7 @@
         <td><c:out value='${requestScope["productSearch"].getCategory()}'></c:out></td>
     </tr>
     
-
+<a href="/Product"> back to list</a>
 </table>
 </body>
 </html>
